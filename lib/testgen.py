@@ -22,8 +22,6 @@ def loadQuestions(item, reader, reorder_answers = True):
 	if os.path.isfile(item):
 		ttr = reader(item)
 		questions = ttr.getQuestions()
-		print len(questions)
-		#sys.exit(1)
 		for q in questions:
 			if reorder_answers: random.shuffle(q.answers)
 		return questions

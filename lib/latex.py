@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
+from __future__ import division
 import sys
+import math
 import string
 import re
 
 class LatexTestWriter:
+	
+	letters = (u'А', u'Б', u'В', u'Г', u'Д')
+	
 	def setFD(self, f=None):
 		if not f:
 			self.f = sys.stdout
@@ -14,7 +19,6 @@ class LatexTestWriter:
 
 
 	def texify(self, s):
-		print repr(s)
 		s = re.sub(ur'\*(\S+)\*', r'\\underline{\\textbf{\1}}', s)
 		s = s.replace(u'->', u'$\\to$')
 		return s
@@ -37,7 +41,15 @@ class LatexTestWriter:
 	def hackUniLits(self, s):
 		return s.replace(r'\\u', r'\u')
 
-	def whole(self, test):
+	def correctLetter(self, q):
+		correct = None
+		for (l, a) in zip(self.letters, q.answers):
+			if a.correct:
+				if correct: correct = u'+'
+				else: correct = l
+		return correct
+
+	def whole(self, test, answer_sheet = False):
 		tmpl = ur"""\documentclass[a4paper,10pt]{article}
 \\usepackage[T2A]{fontenc}
 \\usepackage[cp1251]{inputenc}
@@ -56,28 +68,45 @@ class LatexTestWriter:
 \end{tabular}
 \vspace{0.5cm}
 
-%Place for answers%
-\begin{tabular}[c]{$tabspecifier}
-\hline
-
-$tabnumbers \\
-\hline
-$tabspaces \\
-\hline
-\end{tabular}
+$answers
 
 $body
 
 \end{document}
 """
-		numquestions = len(test.questions)
-		tabspecifier = u'|'+u'|'.join([u'p{0.2cm}']*numquestions)+u'|'
-		tabnumbers = u' & '.join(map(str, range(1, numquestions+1)))
-		tabspaces =  u' & '.join([u' ']*numquestions)
+		answers = self.answers(test, len(test.questions), answer_sheet)
 		d = vars()
 		d.update(vars(test))
 		res = string.Template(tmpl).safe_substitute(d)
 		return res
+		
+	def answers(self, test, number, correct_answers = False):
+		columns_count = 25
+		rows_count = int(math.ceil(number / columns_count))
+		answers_tmpl = r"""%Place for answers%
+\begin{tabular}[c]{$tabspecifier}
+\hline
+$rows
+\end{tabular}
+"""
+		row_tmpl = r"""$tabnumbers \\
+\hline
+$tabletters \\
+\hline"""
+		rows = []
+		tabspecifier = u'|'+u'|'.join([u'p{0.2cm}']*columns_count)+u'|'
+		if correct_answers:
+			answers = [self.correctLetter(q) for q in test.questions]
+		else:
+			answers = [u' '] * number
+		if number % columns_count != 0: answers.extend([u' '] * (columns_count * rows_count - number))
+		for line in xrange(0, rows_count):
+			start, end = line*columns_count + 1, line*columns_count + columns_count
+			tabnumbers = u' & '.join([str(i) if i <= number else u' ' for i in xrange(start, end + 1)])
+			tabletters =  u' & '.join(answers[start-1:end])
+			rows.append(string.Template(row_tmpl).safe_substitute(vars()))
+		rows = '\n'.join(rows)
+		return string.Template(answers_tmpl).safe_substitute(vars())
 
 	def questions(self, questions):
 		tmpl = ur"""
