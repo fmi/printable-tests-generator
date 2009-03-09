@@ -7,7 +7,7 @@ import re
 
 class LatexTestWriter:
 	
-	letters = (u'А', u'Б', u'В', u'Г', u'Д')
+	letters = (u'А', u'Б', u'В', u'Г', u'Д', u'Е', u'Ж', u'З', u'И', u'Й', u'К', u'Л', u'М', u'Н', u'О', u'П', u"Р", u"С", u"Т", u"У", u"Ф", u"Х", u"Ц", u"Ш", u"Щ", u"Ъ", u"Ь", u"Ю", u"Я")
 	
 	def setFD(self, f=None):
 		if not f:
