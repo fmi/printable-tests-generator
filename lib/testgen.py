@@ -16,6 +16,7 @@ def genTest(spec, reader, reorder_answers = True):
 			if 'all' != spec[item]:
 				item_questions = random.sample(item_questions, spec[item])
 			questions.extend(item_questions)
+		random.shuffle(questions)		
 		return questions
 
 def loadQuestions(item, reader, reorder_answers = True):
@@ -26,5 +27,5 @@ def loadQuestions(item, reader, reorder_answers = True):
 			if reorder_answers: random.shuffle(q.answers)
 		return questions
 	else:
-		raise IOError(item+" is not a valid question file!")
+		raise IOError(item+" doesn't exist!")
 
