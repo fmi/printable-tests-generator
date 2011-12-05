@@ -81,7 +81,7 @@ $body
 		return res
 		
 	def answers(self, test, number, correct_answers = False):
-		columns_count = 25
+		columns_count = 15
 		rows_count = int(math.ceil(number / columns_count))
 		answers_tmpl = r"""%Place for answers%
 \begin{tabular}[c]{$tabspecifier}
@@ -119,7 +119,7 @@ $sq
 \end{enumerate}
 """
 		qt = ur"""
-%\begin{samepage}%
+\begin{samepage}
 
 \item $text
 
@@ -129,7 +129,9 @@ $sa
 
 \end{enumerate}
 
-%\end{samepage}%"""
+\end{samepage}
+\pagebreak[1]
+"""
 		sq = []
 		for q in questions:
 			q.text = self.texify(q.text)
