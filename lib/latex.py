@@ -20,7 +20,7 @@ class LatexTestWriter:
 
 	def texify(self, s):
 		s = re.sub(ur'\*(\S+)\*', r'\\underline{\\textbf{\1}}', s)
-		s = s.replace(u'->', u'$\\to$')
+		# s = s.replace(u'->', u'$\\to$')
 		return s
 
 	def write(self, test, f=None):
