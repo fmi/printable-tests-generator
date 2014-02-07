@@ -1,2 +1,5 @@
 # Python bytecode cache files
 *.pyc
+
+# Mac OS X files
+.DS_Store
