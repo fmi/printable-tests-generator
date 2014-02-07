@@ -1,0 +1,26 @@
+Какъв ще е резултатът от изпълнението на следния JavaScript код:
+`["1", "2", "3"].map(parseInt)`
+
+	* `["1", "2", "3"]`
+	* `[1, 2, 3]`
+	* `[0, 1, 2]`
+	+ `[1, NaN, NaN]`
+	* Ще се предизвика грешка
+
+Какъв ще бъде резултатът от изпълнението на следния израз:
+`var name = 'World!';
+
+(function () {
+    if (typeof name === 'undefined') {
+        var name = 'Jack';
+        console.log('Goodbye ' + name);
+    } else {
+        console.log('Hello ' + name);
+    }
+})();`
+
+	* `Hello Jack`
+	* `Hello undefined`
+	+ `Goodbye Jack`
+	* Ще предизвика синтактична грешка
+	* `Hello World`
