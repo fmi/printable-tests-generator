@@ -6,6 +6,8 @@
 
 Системата генерира както тестове, така и отделен PDF с верните отговори.
 
+![Screenshot](http://fmi.github.io/printable-tests-generator/generated_test.png)
+
 ## Външни зависимости
 
 * Python 2.x, например 2.6
