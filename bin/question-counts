@@ -1,0 +1,14 @@
+#!/bin/sh
+
+folder_with_questions="$1"
+
+if [ ! -d "$folder_with_questions" ]; then
+	echo "Usage: $0 <path to folder with questions>" >&2
+	exit 1
+fi
+
+ls "$folder_with_questions"/*txt | while read questions_file
+do
+	questions_count=`grep -E '^\t\+' $questions_file | wc -l`
+	echo $questions_count - `basename $questions_file`
+done
