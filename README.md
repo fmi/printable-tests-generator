@@ -15,9 +15,12 @@
 
 ## Инсталация
 
-1. Уверете се, че имате Python2.6
-2. Инсталирайте си LaTeX, барабар с пакети за кирилица. Под Mac OS е лесно, на
-   цената на 1.6GB download: http://www.tug.org/mactex/
+1. Уверете се, че имате Python >=2.6
+2. Инсталирайте си LaTeX, барабар с пакети за кирилица.
+    - Под Mac OS е лесно, на цената на 1.6GB download: http://www.tug.org/mactex/
+    - Под GNU/Linux ви трябва `texlive`
+        - В Arch пакетите са `texlive-core` и `texlive-langcyrillic`
+        - В Ubuntu - `texlive` и `texlive-lang-cyrillic`
 3. Клонирайте това хранилище.
 
 ## Примерен формат на въпрос
